@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,13 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppSetings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HelpAssistant.Api.Models\HelpAssistant.Api.Models.csproj">
       <Project>{5471f647-4013-49c4-832a-999c375b91a0}</Project>
       <Name>HelpAssistant.Api.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
