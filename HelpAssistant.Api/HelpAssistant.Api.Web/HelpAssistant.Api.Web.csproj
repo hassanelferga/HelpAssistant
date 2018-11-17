@@ -8,7 +8,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D5EF730B-075F-4416-904F-669418132A6C}</ProjectGuid>
+    <ProjectGuid>{06C937C3-BD3A-4C67-97B7-A4926C5DB145}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -183,7 +183,6 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -276,6 +275,16 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HelpAssistant.Api.DAL\HelpAssistant.Api.DAL.csproj">
+      <Project>{e83002e4-ceb3-442e-8971-23fd9d0e1fc0}</Project>
+      <Name>HelpAssistant.Api.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HelpAssistant.Api.Models\HelpAssistant.Api.Models.csproj">
+      <Project>{5471f647-4013-49c4-832a-999c375b91a0}</Project>
+      <Name>HelpAssistant.Api.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -292,7 +301,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>26694</DevelopmentServerPort>
+          <DevelopmentServerPort>27096</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:26694/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
