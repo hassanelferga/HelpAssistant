@@ -49,6 +49,7 @@
     <Compile Include="AppSetings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetupContacts.cs" />
+    <Compile Include="SignSetting.cs" />
     <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
