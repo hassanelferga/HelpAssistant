@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AppSetings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="setubContact.cs" />
     <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>
