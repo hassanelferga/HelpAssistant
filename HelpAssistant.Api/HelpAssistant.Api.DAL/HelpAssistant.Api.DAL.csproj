@@ -49,7 +49,6 @@
     <Compile Include="AppSetings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SetupContacts.cs" />
-    <Compile Include="UpdateUser.cs" />
     <Compile Include="UserManager.cs" />
   </ItemGroup>
   <ItemGroup>

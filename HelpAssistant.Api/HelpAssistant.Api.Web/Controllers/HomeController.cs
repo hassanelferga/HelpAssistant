@@ -38,7 +38,7 @@ namespace HelpAssistant.Api.Web.Controllers
             update.Password = "";
 
 
-            long userId = UpdateUser.Update(update);
+            long userId = UserManager.Update(update);
 
 
 
