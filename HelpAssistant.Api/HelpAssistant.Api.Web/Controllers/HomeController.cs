@@ -12,16 +12,35 @@ namespace HelpAssistant.Api.Web.Controllers
     {
         public ActionResult Index()
         {
-            // Create User
-            RegisterModel user = new RegisterModel();
-            user.FirstName = "Ahmed";
-            user.LastName = "Moahmed Ragb";
-            user.UserName = "hassanibrahim";
-            user.Email = "abc@abc.com";
-            user.Password = "Password";
-            user.PhoneNumber = "010888333";
 
-            long userId = UserManager.Register(user);
+            // Create User
+
+            /*             RegisterModel user = new RegisterModel();
+                        user.FirstName = "Ahmed";
+                        user.LastName = "Moahmed Ragb";
+                        user.UserName = "hassanibrahim";
+                        user.Email = "abc@abc.com";
+                        user.Password = "Password";
+                        user.PhoneNumber = "010888333";
+
+                        long userId = UserManager.Register(user);
+
+            */
+
+
+            //Update User
+
+            RegisterModel update = new RegisterModel();
+            update.UserID = 3;
+            update.FirstName = "Zaki";
+            update.LastName = "";
+            update.PhoneNumber = "";
+            update.Password = "";
+
+
+            long userId = UpdateUser.Update(update);
+
+
 
             ViewBag.Title = "Home Page";
 
