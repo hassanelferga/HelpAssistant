@@ -20,7 +20,7 @@ namespace HelpAssistant.Api.DAL
                 {
                     SqlCommand command = new SqlCommand();
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = "Sp_EmergencyContact";
+                    command.CommandText = "Sp_SignIn";
                     command.Connection = connection;
 
 
