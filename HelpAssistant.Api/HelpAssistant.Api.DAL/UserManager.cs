@@ -126,6 +126,41 @@ namespace HelpAssistant.Api.DAL
             }
             return UserID;
         }
+
+        public static int SignIn(UserModel User)
+        {
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Sp_SignIn";
+                    command.Connection = connection;
+
+
+                    // Add Store Procedure Paramters
+                    command.Parameters.AddWithValue("@UserName", User.UserName);
+                    command.Parameters.AddWithValue("@Email", User.Email);
+                    command.Parameters.AddWithValue("@UserPassword", User.UserPassword);
+
+                    // Open Connection
+                    connection.Open();
+
+                    // Insert Record to the database
+                    int noOfRows = command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            { 
+
+                throw ex;
+            }
+
+
+            return 0;
+        }  
     }
 
 }
