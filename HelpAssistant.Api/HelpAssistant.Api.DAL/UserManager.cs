@@ -67,9 +67,7 @@ namespace HelpAssistant.Api.DAL
                     command.Parameters.AddWithValue("@FirstName", modify.FirstName);
                     command.Parameters.AddWithValue("@LastName", modify.LastName);
                     command.Parameters.AddWithValue("@PhoneNumber", modify.PhoneNumber);
-                    //command.Parameters.AddWithValue("@UserName", modify.UserName);
                     command.Parameters.AddWithValue("@UserPassword", modify.Password);
-                    //command.Parameters.AddWithValue("@Email", modify.Email);
 
 
                     // Open Connection
@@ -88,8 +86,46 @@ namespace HelpAssistant.Api.DAL
 
 
             return userId;
-            // what the return will be ??
-            //there is a logic error in this statement
+           
+        }
+
+        public static int DeleteUser(RegisterModel Delete)
+        {
+          int  UserID = 0;
+
+
+            try
+            {
+
+
+                using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Sp_DeleteUser";
+                    command.Connection = connection;
+
+
+                    // Add Store Procedure Paramters
+                    command.Parameters.AddWithValue("@UserID", Delete.UserID);
+                    
+
+                    // Open Connection
+                    connection.Open();
+
+                    // Insert Record to the database
+                    int noOfRows = command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+            return UserID;
+
         }
     }
 }
