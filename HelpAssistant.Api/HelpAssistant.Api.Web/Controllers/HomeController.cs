@@ -30,6 +30,7 @@ namespace HelpAssistant.Api.Web.Controllers
 
             //Update User
 
+            /*
             RegisterModel update = new RegisterModel();
             update.UserID = 3;
             update.FirstName = "Zaki";
@@ -38,13 +39,16 @@ namespace HelpAssistant.Api.Web.Controllers
             update.Password = "";
 
 
-            long userId = UserManager.Update(update);
+            int userId = UserManager.Update(update);
 
-
+    */
+            UserModel Get = new UserModel();
+            Get.UserID = 4;
 
             ViewBag.Title = "Home Page";
 
             return View();
         }
+       
     }
 }
