@@ -34,7 +34,7 @@ namespace HelpAssistant.Api.DAL
                     connection.Open();
 
                     // Insert Record to the database
-                    int noOfRows = command.ExecuteNonQuery();
+                    userId = Convert.ToInt64(command.ExecuteScalar().ToString());
                 }
             }
             catch (Exception ex)

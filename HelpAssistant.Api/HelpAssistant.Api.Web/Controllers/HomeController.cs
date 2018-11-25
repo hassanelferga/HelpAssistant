@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using HelpAssistant.Api.Models;
 using HelpAssistant.Api.DAL;
+using HelpAssistant.Api.Web.Utils;
 
 namespace HelpAssistant.Api.Web.Controllers
 {
@@ -12,7 +13,9 @@ namespace HelpAssistant.Api.Web.Controllers
     {
         public ActionResult Index()
         {
-
+            // Test Hashing
+            string samplePassword = "test";
+            string hashedPassword = Crypto.HashString(samplePassword);
             // Create User
 
             /*             RegisterModel user = new RegisterModel();
