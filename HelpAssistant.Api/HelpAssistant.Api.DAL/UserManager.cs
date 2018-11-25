@@ -204,40 +204,40 @@ namespace HelpAssistant.Api.DAL
         
         // Search for User with ID
 
-        public static int GetUser(UserModel get)
-        {
-            int UserID = 0;
-            try
-            {
+        //public static int GetUser(UserModel get)
+        //{
+        //    int UserID = 0;
+        //    try
+        //    {
 
 
-                using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
-                {
-                    SqlCommand command = new SqlCommand();
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = "Sp_GetUser";
-                    command.Connection = connection;
+        //        using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
+        //        {
+        //            SqlCommand command = new SqlCommand();
+        //            command.CommandType = System.Data.CommandType.StoredProcedure;
+        //            command.CommandText = "Sp_GetUser";
+        //            command.Connection = connection;
 
 
-                    // Add Store Procedure Paramters
-                    command.Parameters.AddWithValue("@UserID", get.UserID);
+        //            // Add Store Procedure Paramters
+        //            command.Parameters.AddWithValue("@UserID", get.UserID);
 
 
 
-                    // Open Connection
-                    connection.Open();
+        //            // Open Connection
+        //            connection.Open();
 
-                    // Insert Record to the database
-                    int noOfRows = command.ExecuteNonQuery();
-                }
-            }
-            catch (Exception ex)
-            {
+        //            // Insert Record to the database
+        //            int noOfRows = command.ExecuteNonQuery();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
 
-                throw ex;
-            }
-            return UserID;
-        }
+        //        throw ex;
+        //    }
+        //    return UserID;
+        //}
     }
 
 }
