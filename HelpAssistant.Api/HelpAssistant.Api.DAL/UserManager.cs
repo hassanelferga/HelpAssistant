@@ -128,6 +128,8 @@ namespace HelpAssistant.Api.DAL
 
 
         }
+       
+        
         // Search for User with ID
 
         public static int GetUser(UserModel get)
