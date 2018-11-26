@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HelpAssistant.Api.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\HelpAssistant.Api.Models\bin\Debug\HelpAssistant.Api.Models.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -44,13 +48,8 @@
   <ItemGroup>
     <Compile Include="Properties\AppSetings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SetupContacts.cs" />
     <Compile Include="UserManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HelpAssistant.Api.Models\HelpAssistant.Api.Models.csproj">
-      <Project>{5471f647-4013-49c4-832a-999c375b91a0}</Project>
-      <Name>HelpAssistant.Api.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

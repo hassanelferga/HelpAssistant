@@ -8,7 +8,10 @@ namespace HelpAssistant.Api.Models
 {
     public class UserModel
     {
+        //  To Sign in 
         public long UserID { get; set; }
         public string UserName { get; set; }
+        public string Email { get; set; }
+        public string UserPassword { get; set; }
     }
 }
