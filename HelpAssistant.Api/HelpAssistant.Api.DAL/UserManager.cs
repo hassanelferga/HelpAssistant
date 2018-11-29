@@ -117,10 +117,10 @@ namespace HelpAssistant.Api.DAL
                     int noOfRows = command.ExecuteNonQuery();
                 }
             }
-            catch (Exception ex)
+            catch (Exception exp)
             {
 
-                throw ex;
+                throw exp;
             }
             return UserID;
         }
