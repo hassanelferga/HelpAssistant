@@ -7,6 +7,7 @@ using HelpAssistant.Api.Models;
 using HelpAssistant.Api.DAL;
 using HelpAssistant.Api.Web.Utils;
 
+
 namespace HelpAssistant.Api.Web.Controllers
 {
     public class HomeController : Controller
