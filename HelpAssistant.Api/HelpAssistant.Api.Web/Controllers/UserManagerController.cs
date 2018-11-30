@@ -23,7 +23,7 @@ namespace HelpAssistant.Api.Web.Controllers
             long userID = UserManager.Register(user);
             return Ok(userID);
         }
-        [Route("Update")]
+        [Route("update")]
         [HttpPost]
         public IHttpActionResult Update(RegisterModel modify)
         {
@@ -33,15 +33,15 @@ namespace HelpAssistant.Api.Web.Controllers
         }
 
         //there is an Error in postman (Exeption Error)
-        [Route("GetUser")]
+        [Route("getUser")]
         [HttpGet]
-        public IHttpActionResult GetUser(UserModel Get )
+        public IHttpActionResult GetUser(long userID )
         {
-            int UserID = UserManager.GetUser(Get);
-            return Ok( UserID);
+            UserModel user = UserManager.GetUser(userID);
+            return Ok( user);
         }
         //there is an Error in postman (Exeption Error)
-        [Route("SignIn")]
+        [Route("signIn")]
         [HttpPost]
         public IHttpActionResult SignIn(UserModel User)
         {
