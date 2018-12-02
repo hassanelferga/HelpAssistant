@@ -97,9 +97,9 @@ namespace HelpAssistant.Api.DAL
 
         // Search for User with ID
 
-        public static int GetUser(UserModel get)
+        public static UserModel GetUser(long userID)
         {
-            int UserID = 0;
+            UserModel user = new UserModel();
             try
             {
 
@@ -113,7 +113,7 @@ namespace HelpAssistant.Api.DAL
 
 
                     // Add Store Procedure Paramters
-                    command.Parameters.AddWithValue("@UserID", get.UserID);
+                    command.Parameters.AddWithValue("@UserID", userID);
 
 
 
@@ -121,15 +121,22 @@ namespace HelpAssistant.Api.DAL
                     connection.Open();
 
                     // Insert Record to the database
-                    int noOfRows = command.ExecuteNonQuery();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while(reader.Read())
+                    {
+                       
+                        user.UserID = Convert.ToInt64(reader["UserID"].ToString());
+                        user.UserName = reader["UserName"].ToString();
+                        user.Email = reader["Email"].ToString();
+                    }
                 }
             }
-            catch (Exception ex)
+            catch (Exception exp)
             {
 
-                throw ex;
+                throw exp;
             }
-            return UserID;
+            return user;
         }
 
         public static int SignIn(UserModel User)
@@ -209,42 +216,7 @@ namespace HelpAssistant.Api.DAL
         }
        
         
-        // Search for User with ID
-
-        //public static int GetUser(UserModel get)
-        //{
-        //    int UserID = 0;
-        //    try
-        //    {
-
-
-        //        using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
-        //        {
-        //            SqlCommand command = new SqlCommand();
-        //            command.CommandType = System.Data.CommandType.StoredProcedure;
-        //            command.CommandText = "Sp_GetUser";
-        //            command.Connection = connection;
-
-
-        //            // Add Store Procedure Paramters
-        //            command.Parameters.AddWithValue("@UserID", get.UserID);
-
-
-
-        //            // Open Connection
-        //            connection.Open();
-
-        //            // Insert Record to the database
-        //            int noOfRows = command.ExecuteNonQuery();
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        throw ex;
-        //    }
-        //    return UserID;
-        //}
+        
     }
 
 }
