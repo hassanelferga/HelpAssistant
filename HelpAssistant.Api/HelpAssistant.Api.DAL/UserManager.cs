@@ -7,6 +7,7 @@ using HelpAssistant.Api.Models;
 using System.Data.SqlClient;
 
 namespace HelpAssistant.Api.DAL
+
 {
     public static class UserManager
     {
@@ -88,6 +89,12 @@ namespace HelpAssistant.Api.DAL
             return userId;
 
         }
+
+        public static long GetUser()
+        {
+            throw new NotImplementedException();
+        }
+
         // Search for User with ID
 
         public static int GetUser(UserModel get)
