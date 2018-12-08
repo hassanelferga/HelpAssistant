@@ -32,7 +32,7 @@ namespace HelpAssistant.Api.Web.Controllers
             return Ok(userID);  
         }
 
-        //there is an Error in postman (Exeption Error)
+        
         [Route("getUser")]
         [HttpGet]
         public IHttpActionResult GetUser(long userID )

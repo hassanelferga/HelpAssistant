@@ -119,8 +119,11 @@ namespace HelpAssistant.Api.DAL
                     {
                        
                         user.UserID = Convert.ToInt64(reader["UserID"].ToString());
+                        user.FirstName = reader["FirstName"].ToString();
+                        user.LastName = reader["LastName"].ToString();
                         user.UserName = reader["UserName"].ToString();
                         user.Email = reader["Email"].ToString();
+                        user.PhoneNumber = reader["PhoneNumber"].ToString();
                     }
                 }
             }
