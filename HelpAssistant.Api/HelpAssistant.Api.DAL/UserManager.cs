@@ -47,6 +47,11 @@ namespace HelpAssistant.Api.DAL
             return userId;
         }
 
+        public static long Update()
+        {
+            throw new NotImplementedException();
+        }
+
         public static int Update(RegisterModel modify)
         {
             int userId = 0;
