@@ -32,7 +32,7 @@ namespace HelpAssistant.Api.Web.Controllers
 
                         long userId = UserManager.Register(user);
 
-            */
+                     */
 
 
             //Update User

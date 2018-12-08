@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -23,6 +24,7 @@ namespace HelpAssistant.Api.Web.Controllers
             long userID = UserManager.Register(user);
             return Ok(userID);
         }
+
         [Route("update")]
         [HttpPost]
         public IHttpActionResult Update(RegisterModel modify)
@@ -40,13 +42,21 @@ namespace HelpAssistant.Api.Web.Controllers
             UserModel user = UserManager.GetUser(userID);
             return Ok( user);
         }
-        //there is an Error in postman (Exeption Error)
+        
         [Route("signIn")]
         [HttpPost]
         public IHttpActionResult SignIn(UserModel User)
         {
             int UserId = UserManager.SignIn(User);
             return Ok(UserId);
+        }
+
+        [Route("deleteUser")]
+        [HttpPost]
+        public IHttpActionResult DeleteUser(RegisterModel Delete)
+        {
+            int UserID = UserManager.DeleteUser(Delete);
+            return Ok(UserID);
         }
 
        
