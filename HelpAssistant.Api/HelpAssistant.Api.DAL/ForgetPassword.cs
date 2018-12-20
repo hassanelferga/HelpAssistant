@@ -8,16 +8,16 @@ using HelpAssistant.Api.Models;
 
 namespace HelpAssistant.Api.DAL
 {
-   public class ForgetPassword
+    public class ForgetPassword
     {
-        
+
         // To Check if the email is exist
 
-        public static string  ForgotPassword(UserModel User)
+        public static string ForgotPassword(UserModel User)
         {
             string ErrorMsg = "";
-            
-       try
+
+            try
             {
                 using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
                 {
@@ -35,20 +35,20 @@ namespace HelpAssistant.Api.DAL
                     // Insert Record to the database
                     int noOfRows = command.ExecuteNonQuery();
                 }
-}
+            }
             catch (Exception ex)
             {
 
                 throw ex;
             }
 
-            return ErrorMsg ;
+            return ErrorMsg;
         }
 
 
         public static string UpdatePassword(ForgetPassswordModel UpdatePassword)
         {
-               string Errormsg = "";
+            string Errormsg = "";
             try
             {
                 using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
@@ -59,8 +59,8 @@ namespace HelpAssistant.Api.DAL
                     command.Connection = connection;
 
                     // Add Store Procedure Paramters
-                    command.Parameters.AddWithValue("@code",UpdatePassword.Code);
-                    command.Parameters.AddWithValue("@NewPasword",UpdatePassword.NewPassword );
+                    command.Parameters.AddWithValue("@code", UpdatePassword.Code);
+                    command.Parameters.AddWithValue("@NewPasword", UpdatePassword.NewPassword);
 
                     // Open Connection
                     connection.Open();
@@ -77,9 +77,6 @@ namespace HelpAssistant.Api.DAL
 
             return Errormsg;
         }
-
-
- 
     }
    
 }
