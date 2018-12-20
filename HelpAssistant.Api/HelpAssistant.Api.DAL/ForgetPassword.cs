@@ -48,7 +48,8 @@ namespace HelpAssistant.Api.DAL
 
         public static string UpdatePassword(ForgetPassswordModel UpdatePassword)
         {
-               string Errormsg = "";
+            ForgetPassswordModel Pass = new ForgetPassswordModel();
+            string Errormsg = "";
             try
             {
                 using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
@@ -59,16 +60,20 @@ namespace HelpAssistant.Api.DAL
                     command.Connection = connection;
 
                     // Add Store Procedure Paramters
-                    command.Parameters.AddWithValue("@code",UpdatePassword.Code);
-                    command.Parameters.AddWithValue("@NewPasword",UpdatePassword.NewPassword );
+                    command.Parameters.AddWithValue("@code", UpdatePassword.Code);
+                    command.Parameters.AddWithValue("@NewPasword", UpdatePassword.NewPassword);
 
                     // Open Connection
                     connection.Open();
 
                     // Insert Record to the database
-                    int noOfRows = command.ExecuteNonQuery();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Pass.Code = reader["Code"].ToString();
+                    }
                 }
-            }
+                }
             catch (Exception ex)
             {
 
