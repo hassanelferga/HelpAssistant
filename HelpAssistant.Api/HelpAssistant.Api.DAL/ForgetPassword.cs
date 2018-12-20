@@ -10,11 +10,13 @@ namespace HelpAssistant.Api.DAL
 {
    public class ForgetPassword
     {
-        /*
+        
+        // To Check if the email is exist
 
-        public static ForgetPassswordModel ForgotPassword(string Email)
+        public static string  ForgotPassword(UserModel User)
         {
-         //   string Email = "";
+            string ErrorMsg = "";
+            
        try
             {
                 using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
@@ -25,7 +27,8 @@ namespace HelpAssistant.Api.DAL
                     command.Connection = connection;
 
                     // Add Store Procedure Paramters
-                   
+                    command.Parameters.AddWithValue("@Email", User.Email);
+
                     // Open Connection
                     connection.Open();
 
@@ -39,23 +42,25 @@ namespace HelpAssistant.Api.DAL
                 throw ex;
             }
 
-            return Email;
+            return ErrorMsg ;
         }
 
 
-        public static ForgetPassswordModel UpdatePassword(string code ,string NewPssword)
+        public static string UpdatePassword(ForgetPassswordModel UpdatePassword)
         {
-               string code = "";
+               string Errormsg = "";
             try
             {
                 using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
                 {
                     SqlCommand command = new SqlCommand();
                     command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.CommandText = "SP_ForgotPassword";
+                    command.CommandText = "SP_ApplyNewPassword";
                     command.Connection = connection;
 
                     // Add Store Procedure Paramters
+                    command.Parameters.AddWithValue("@code",UpdatePassword.Code);
+                    command.Parameters.AddWithValue("@NewPasword",UpdatePassword.NewPassword );
 
                     // Open Connection
                     connection.Open();
@@ -70,11 +75,11 @@ namespace HelpAssistant.Api.DAL
                 throw ex;
             }
 
-            return code;
+            return Errormsg;
         }
 
 
-    */
+ 
     }
    
 }

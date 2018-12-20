@@ -11,6 +11,7 @@ namespace HelpAssistant.Api.Models
         public string Code { get; set; }
         public bool StatusCode { get; set; }
         public string ErrorMsg { get; set; }
+        public string NewPassword{ get; set; }
 
 
     }
