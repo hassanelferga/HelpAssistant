@@ -19,6 +19,9 @@ namespace HelpAssistant.Api.Web.Controllers
             string hashedPassword = Crypto.HashString(samplePassword);
             // Create User
             */
+
+
+             /*
                         RegisterModel user = new RegisterModel();
                         user.FirstName = "Ali";
                         user.LastName = "Moahmed Ragb";
@@ -29,7 +32,7 @@ namespace HelpAssistant.Api.Web.Controllers
 
                         long userId = UserManager.Register(user);
 
-            
+                     */
 
 
             //Update User

@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -23,34 +24,7 @@ namespace HelpAssistant.Api.Web.Controllers
             long userID = UserManager.Register(user);
             return Ok(userID);
         }
-    }
-}
 
-[RoutePrefix("api/user")]
-public class UserManagerController : ApiController
-{
-    // Sign up or register
-    [Route("Update")]
-    [HttpPost]
-    public IHttpActionResult Ndata(RegisterModel modify)
-    {
-        modify.Password=Crypto.HashString(modify.Password);
-        long userID = UserManager.Update(modify);
-           
-        return Ok(userID);
-    }
-}
-[Route("getUser")]
-[HttpGet]
-public IHttpActionResult GetUser(long userID)
-{
-    long userID = UserManager.GetUser(long userID);
-    return 
-}
-
-
-/*
-      
         [Route("update")]
         [HttpPost]
         public IHttpActionResult Update(RegisterModel modify)
@@ -60,15 +34,15 @@ public IHttpActionResult GetUser(long userID)
             return Ok(userID);  
         }
 
-        //there is an Error in postman (Exeption Error)
+
         [Route("getUser")]
         [HttpGet]
-        public IHttpActionResult GetUser(long userID )
+        public IHttpActionResult GetUser(long userID)
         {
             UserModel user = UserManager.GetUser(userID);
-            return Ok( user);
+            return Ok(user);
         }
-        //there is an Error in postman (Exeption Error)
+
         [Route("signIn")]
         [HttpPost]
         public IHttpActionResult SignIn(UserModel User)
@@ -77,6 +51,28 @@ public IHttpActionResult GetUser(long userID)
             return Ok(UserId);
         }
 
+        [Route("deleteUser")]
+        [HttpPost]
+        public IHttpActionResult DeleteUser(RegisterModel Delete)
+        {
+            int UserID = UserManager.DeleteUser(Delete);
+            return Ok(UserID);
+        }
+        [Route("ForgetPassword")]
+        [HttpPost]
+        public IHttpActionResult ForgotPassword(UserModel User)
+        {
+            string ErrorMsg = ForgetPassword.ForgotPassword(User);
+            return Ok(ErrorMsg);
+        }
+
+        [Route("UpdatePassword")]
+        [HttpPost]
+        public IHttpActionResult UpdatePassword(ForgetPassswordModel UpdatePassword)
+        {
+            string ErrorMsg = ForgetPassword.UpdatePassword(UpdatePassword);
+            return Ok(ErrorMsg);
+        }
        
     }
 }
