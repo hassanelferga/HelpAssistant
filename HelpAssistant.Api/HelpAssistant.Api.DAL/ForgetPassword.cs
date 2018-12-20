@@ -13,7 +13,7 @@ namespace HelpAssistant.Api.DAL
         
         // To Check if the email is exist
 
-        public static string  ForgotPassword(UserModel User)
+        public static string ForgotPassword(UserModel User)
         {
             string ErrorMsg = "";
             
@@ -42,14 +42,14 @@ namespace HelpAssistant.Api.DAL
                 throw ex;
             }
 
-            return ErrorMsg ;
+            return ErrorMsg;
         }
 
 
         public static string UpdatePassword(ForgetPassswordModel UpdatePassword)
         {
             ForgetPassswordModel Pass = new ForgetPassswordModel();
-            string Errormsg = "";
+               string Errormsg = "";
             try
             {
                 using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
@@ -73,7 +73,7 @@ namespace HelpAssistant.Api.DAL
                         Pass.Code = reader["Code"].ToString();
                     }
                 }
-                }
+            }
             catch (Exception ex)
             {
 
@@ -82,9 +82,6 @@ namespace HelpAssistant.Api.DAL
 
             return Errormsg;
         }
-
-
- 
     }
    
 }

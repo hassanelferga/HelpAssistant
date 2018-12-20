@@ -19,5 +19,10 @@ namespace HelpAssistant.Api.Web.Utils
             string hashString = Convert.ToBase64String(hashedData);
             return hashString;
         }
+
+        internal static long HashString(long userID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

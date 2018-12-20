@@ -31,24 +31,7 @@ namespace HelpAssistant.Api.Web.Controllers
         {
             long userID = UserManager.Update(modify);
 
-            return Ok(userID);
-        }
-
-
-        [Route("getUser")]
-        [HttpGet]
-        public IHttpActionResult GetUser(long userID)
-        {
-            UserModel user = UserManager.GetUser(userID);
-            return Ok(user);
-        }
-
-        [Route("signIn")]
-        [HttpPost]
-        public IHttpActionResult SignIn(UserModel User)
-        {
-            int UserId = UserManager.SignIn(User);
-            return Ok(UserId);
+            return Ok(userID);  
         }
 
         [Route("deleteUser")]
@@ -62,7 +45,7 @@ namespace HelpAssistant.Api.Web.Controllers
         [HttpPost]
         public IHttpActionResult ForgotPassword(UserModel User)
         {
-            string ErrorMsg = ForgetPassword.ForgotPassword(User);
+            string ErrorMsg = ForgetPassword.ForgotPassword (User);
             return Ok(ErrorMsg);
         }
 
@@ -73,6 +56,10 @@ namespace HelpAssistant.Api.Web.Controllers
             string ErrorMsg = ForgetPassword.UpdatePassword(UpdatePassword);
             return Ok(ErrorMsg);
         }
-
+       
     }
 }
+
+
+
+
