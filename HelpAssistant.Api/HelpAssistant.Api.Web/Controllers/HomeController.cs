@@ -21,18 +21,18 @@ namespace HelpAssistant.Api.Web.Controllers
             */
 
 
-             /*
-                        RegisterModel user = new RegisterModel();
-                        user.FirstName = "Ali";
-                        user.LastName = "Moahmed Ragb";
-                        user.UserName = "hassanibrahim";
-                        user.Email = "abc@abc.com";
-                        user.Password = "Password";
-                        user.PhoneNumber = "010888333";
+            /*
+                       RegisterModel user = new RegisterModel();
+                       user.FirstName = "Ali";
+                       user.LastName = "Moahmed Ragb";
+                       user.UserName = "hassanibrahim";
+                       user.Email = "abc@abc.com";
+                       user.Password = "Password";
+                       user.PhoneNumber = "010888333";
 
-                        long userId = UserManager.Register(user);
+                       long userId = UserManager.Register(user);
 
-                     */
+                    */
 
 
             //Update User
@@ -49,9 +49,13 @@ namespace HelpAssistant.Api.Web.Controllers
             int userId = UserManager.Update(update);
 
     */
-         /*   UserModel Get = new UserModel();
-            Get.UserID = 4;
-            */
+            /*   UserModel Get = new UserModel();
+               Get.UserID = 4;
+               */
+
+            // Test Send Email
+            bool isSent = EmailSender.SendEmail("mibrahim_elferga@hotmail.com", "Test From API", "<h1>Hello From my API</h1>");
+
             ViewBag.Title = "Home Page";
 
             return View();
