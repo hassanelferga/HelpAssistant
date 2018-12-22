@@ -13,18 +13,18 @@ namespace HelpAssistant.Api.Web.Utils
             bool isSent = false;
             try
             {
-                SmtpClient client = new SmtpClient("smtp.live.com");
+                SmtpClient client = new SmtpClient(AppSettings.SmtpServer);
                 var mail = new MailMessage();
-                mail.From = new MailAddress("mibrahim_elferga@hotmail.com");
+                mail.From = new MailAddress(AppSettings.FromEmail);
                 mail.To.Add(emailTo);
                 mail.Subject = subject;
                 mail.IsBodyHtml = true;
                 string htmlBody;
                 htmlBody = htmlMsg;
                 mail.Body = htmlBody;
-                client.Port = 587;
+                client.Port = AppSettings.Port;
                 client.UseDefaultCredentials = false;
-                client.Credentials = new System.Net.NetworkCredential("mibrahim_elferga@hotmail.com", "MOHAMEDibrahim");
+                client.Credentials = new System.Net.NetworkCredential(AppSettings.FromEmail, AppSettings.FromEmailPassword);
                 client.EnableSsl = true;
                 client.Send(mail);
                 isSent = true;
