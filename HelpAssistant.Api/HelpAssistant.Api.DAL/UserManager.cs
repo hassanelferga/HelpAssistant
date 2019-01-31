@@ -47,11 +47,6 @@ namespace HelpAssistant.Api.DAL
             return userId;
         }
 
-        public static long Update()
-        {
-            throw new NotImplementedException();
-        }
-
         public static int Update(RegisterModel modify)
         {
             int userId = 0;
@@ -94,13 +89,6 @@ namespace HelpAssistant.Api.DAL
             return userId;
 
         }
-
-        public static long GetUser()
-        {
-            throw new NotImplementedException();
-        }
-
-        // Search for User with ID
 
         public static UserModel GetUser(long userID)
         {

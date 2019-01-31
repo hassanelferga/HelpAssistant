@@ -20,9 +20,5 @@ namespace HelpAssistant.Api.Web.Utils
             return hashString;
         }
 
-        internal static long HashString(long userID)
-        {
-            throw new NotImplementedException();
-        }
-    }
+   }
 }
