@@ -11,7 +11,7 @@ using HelpAssistant.Api.Web.Utils;
 using System.Data.SqlClient;
 
 namespace HelpAssistant.Api.Web.Controllers
-{
+{  
     [RoutePrefix("api/user")]
     public class UserManagerController : ApiController
     {
