@@ -43,9 +43,10 @@ namespace HelpAssistant.Api.Web.Controllers
 
         [Route("signIn")]
         [HttpPost]
-        public IHttpActionResult SignIn(UserModel User)
+        public IHttpActionResult SignIn(string userName, string password)
         {
-            int UserId = UserManager.SignIn(User);
+            UserModel user = new UserModel() { UserName = userName, UserPassword = password };
+            int UserId = UserManager.SignIn(user);
             return Ok(UserId);
         }
 
