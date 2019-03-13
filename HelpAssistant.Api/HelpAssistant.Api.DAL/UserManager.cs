@@ -11,9 +11,11 @@ namespace HelpAssistant.Api.DAL
 {
     public static class UserManager
     {
-        public  static long Register(RegisterModel user)
+        public  static int Register(RegisterModel user, out string errorMessage, out long userID)
         {
-            long userId = 0;
+            int status = 0;
+            userID = 0;
+            errorMessage = string.Empty;
             try
             {
                 using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
@@ -33,18 +35,22 @@ namespace HelpAssistant.Api.DAL
 
                     // Open Connection
                     connection.Open();
-
-                    // Insert Record to the database
-                    userId = Convert.ToInt64(command.ExecuteScalar().ToString());
+                    SqlDataReader reader = command.ExecuteReader(System.Data.CommandBehavior.SingleRow);
+                    while(reader.Read())
+                    {
+                        errorMessage = reader["ErrorMsg"].ToString();
+                        userID = Convert.ToInt64(reader["UserID"].ToString());
+                        status = Convert.ToInt32(reader["Status"].ToString());
+                    }
+                    
                 }
+                return status;
             }
             catch (Exception ex)
             {
 
                 throw ex;
             }
-
-            return userId;
         }
 
         public static int Update(RegisterModel modify)
@@ -135,8 +141,9 @@ namespace HelpAssistant.Api.DAL
             return user;
         }
 
-        public static int SignIn(UserModel User)
+        public static UserModel SignIn(string userName, string email)
         {
+            UserModel User = new UserModel();
 
             try
             {
@@ -149,26 +156,39 @@ namespace HelpAssistant.Api.DAL
 
 
                     // Add Store Procedure Paramters
-                    command.Parameters.AddWithValue("@UserName", User.UserName);
-                    command.Parameters.AddWithValue("@Email", User.Email);
-                    command.Parameters.AddWithValue("@UserPassword", User.UserPassword);
+                    command.Parameters.AddWithValue("@UserName", userName);
+                    command.Parameters.AddWithValue("@Email", email);
+                    //command.Parameters.AddWithValue("@Password", User.UserPassword);
 
                     // Open Connection
                     connection.Open();
 
-                    // Insert Record to the database
-                    int noOfRows = command.ExecuteNonQuery();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+
+                        User.UserID = Convert.ToInt64(reader["UserID"].ToString());
+                        User.FirstName = reader["FirstName"].ToString();
+                        User.LastName = reader["LastName"].ToString();
+                        User.PhoneNumber = reader["PhoneNumber"].ToString();
+                        User.UserPassword = reader["UserPassword"].ToString();
+                        User.Email = reader["Email"].ToString();
+                        User.UserName = reader["UserName"].ToString();
+                        User.IsActive = Convert.ToBoolean(reader["IsActive"].ToString());
+
+                    }
                 }
+
             }
             catch (Exception ex)
-            { 
+            {
 
                 throw ex;
             }
 
 
-            return 0;
-           
+            return User;
+
         }
 
         public static int DeleteUser(RegisterModel Delete)

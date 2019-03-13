@@ -18,11 +18,20 @@ namespace HelpAssistant.Api.Web.Controllers
         // Sign up or register
         [Route("register")]
         [HttpPost]
-        public IHttpActionResult SignUp(RegisterModel user)
+        public HttpResponseMessage SignUp(RegisterModel user)
         {
             user.Password = Crypto.HashString(user.Password);
-            long userID = UserManager.Register(user);
-            return Ok(userID);
+            string errorMessage;
+            long userID;
+            int status = UserManager.Register(user, out errorMessage, out userID);
+            if(status == 0 || status == -1)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, errorMessage);
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, userID);
+            }
         }
 
         [Route("update")]
@@ -43,11 +52,31 @@ namespace HelpAssistant.Api.Web.Controllers
 
         [Route("signIn")]
         [HttpPost]
-        public IHttpActionResult SignIn(string userName, string password)
+        public HttpResponseMessage SignIn(UserModel user)
         {
-            UserModel user = new UserModel() { UserName = userName, UserPassword = password };
-            int UserId = UserManager.SignIn(user);
-            return Ok(UserId);
+            // UserModel user = new UserModel() { UserName = userName, UserPassword = password };
+
+            UserModel dbUser = UserManager.SignIn(user.UserName, user.Email);
+            if(dbUser == null)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "User does not exists. Please check your information.");
+            }
+            else if(!dbUser.IsActive)
+            {
+                return Request.CreateResponse(HttpStatusCode.NotFound, "User account is not active, please contact the administrator");
+            }
+            else
+            {
+                string incomingPassword = Crypto.HashString(user.UserPassword);
+                if(dbUser.UserPassword == incomingPassword)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, dbUser);
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.NotFound, "Invalid username/email or password.");
+                }
+            }
         }
 
         [Route("deleteUser")]
