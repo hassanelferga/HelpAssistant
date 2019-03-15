@@ -42,6 +42,15 @@ namespace HelpAssistant.Api.Web.Controllers
 
             return Ok(userID);  
         }
+
+        [Route("Emergency")]
+        [HttpPost]
+        public IHttpActionResult Emergency(EmergencyModel contact)
+        {
+            int userID = SetupContacts.Emergency(contact);
+            return Ok(userID);
+        }
+
         [Route("getUser")]
         [HttpGet]
         public IHttpActionResult GetUser(long userID)
