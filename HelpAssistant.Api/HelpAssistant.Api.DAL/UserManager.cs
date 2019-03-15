@@ -157,7 +157,7 @@ namespace HelpAssistant.Api.DAL
 
                     // Add Store Procedure Paramters
                     command.Parameters.AddWithValue("@UserName", userName);
-                    command.Parameters.AddWithValue("@Email", email);
+                    command.Parameters.AddWithValue("@Email", userName);
                     //command.Parameters.AddWithValue("@Password", User.UserPassword);
 
                     // Open Connection
