@@ -30,7 +30,11 @@ namespace HelpAssistant.Api.Web.Controllers
             }
             else
             {
-                return Request.CreateResponse(HttpStatusCode.OK, userID);
+                var userObject = new
+                {
+                    userID = userID
+                };
+                return Request.CreateResponse(HttpStatusCode.OK,  userObject);
             }
         }
 
@@ -70,6 +74,7 @@ namespace HelpAssistant.Api.Web.Controllers
                 string incomingPassword = Crypto.HashString(user.UserPassword);
                 if(dbUser.UserPassword == incomingPassword)
                 {
+                    dbUser.UserPassword = string.Empty;
                     return Request.CreateResponse(HttpStatusCode.OK, dbUser);
                 }
                 else
