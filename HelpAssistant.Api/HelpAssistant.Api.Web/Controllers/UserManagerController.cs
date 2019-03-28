@@ -42,8 +42,10 @@ namespace HelpAssistant.Api.Web.Controllers
         [HttpPost]
         public IHttpActionResult Update(RegisterModel modify)
         {
+            
+            string updatePassword = Crypto.HashString(modify.Password);
+            modify.Password = updatePassword ;
             long userID = UserManager.Update(modify);
-
             return Ok(userID);  
         }
 
