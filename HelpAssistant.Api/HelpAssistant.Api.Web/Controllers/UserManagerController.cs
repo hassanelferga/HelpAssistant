@@ -51,9 +51,11 @@ namespace HelpAssistant.Api.Web.Controllers
 
         [Route("Emergency")]
         [HttpPost]
-        public IHttpActionResult Emergency(EmergencyModel contact)
+        public IHttpActionResult Emergency(string userID, string numbers, string message)
         {
-            int userID = SetupContacts.Emergency(contact);
+            // Contactnate the number in the list and make them as string in the following format
+            // string number = "number1,number2, number3"
+            bool isDone = SetupContacts.Emergency(userID, numbers, message);
             return Ok(userID);
         }
 
