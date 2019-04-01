@@ -10,9 +10,9 @@ namespace HelpAssistant.Api.DAL
 {
     public static class  SetupContacts
     {
-        public static int Emergency(EmergencyModel contact )
+        public static bool Emergency(string userID, string numbers, string message )
         {
-            int EmergencyId=0;
+            bool isDone = false;
             try
             {
                 using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
@@ -24,15 +24,17 @@ namespace HelpAssistant.Api.DAL
 
                     
                     // Add Store Procedure Paramters
-                    command.Parameters.AddWithValue("@EmergencyID", contact.EmergencyId);
-                    command.Parameters.AddWithValue("@MobileNo", contact.MobileNumber);
-                    command.Parameters.AddWithValue("@ContentSMS", contact.ContentSMS);
+                    command.Parameters.AddWithValue("@UserID", userID);
+                    command.Parameters.AddWithValue("@Numbers", numbers);
+                    command.Parameters.AddWithValue("@Message", message);
 
                     // Open Connection
                     connection.Open();
 
                     // Insert Record to the database
                     int noOfRows = command.ExecuteNonQuery();
+                    if (noOfRows > 0)
+                        isDone = true;
                 }
             }
             catch (Exception ex)
@@ -40,9 +42,8 @@ namespace HelpAssistant.Api.DAL
 
                 throw ex;
             }
+            return isDone;
 
-
-            return EmergencyId;
         }
 
     }
