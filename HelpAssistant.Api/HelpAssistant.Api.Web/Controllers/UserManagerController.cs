@@ -26,6 +26,10 @@ namespace HelpAssistant.Api.Web.Controllers
             int status = UserManager.Register(user, out errorMessage, out userID);
             if(status == 0 || status == -1)
             {
+                // Send Email to user
+                // Make Async in new Task
+                // Generate user code and insert into table (new table UserID, Code, is used)
+                bool isSent = EmailSender.SendEmail(user.Email, "Activate Your Account", "Click here to Activate");
                 return Request.CreateResponse(HttpStatusCode.NotFound, errorMessage);
             }
             else
@@ -51,12 +55,12 @@ namespace HelpAssistant.Api.Web.Controllers
 
         [Route("Emergency")]
         [HttpPost]
-        public IHttpActionResult Emergency(string userID, string numbers, string message)
+        public IHttpActionResult Emergency(EmergencyModel model)
         {
             // Contactnate the number in the list and make them as string in the following format
             // string number = "number1,number2, number3"
-            bool isDone = SetupContacts.Emergency(userID, numbers, message);
-            return Ok(userID);
+            bool isDone = SetupContacts.Emergency(model.UserID, model.Numbers, model.Message);
+            return Ok(isDone);
         }
 
         [Route("getUser")]
@@ -118,6 +122,18 @@ namespace HelpAssistant.Api.Web.Controllers
         {
             string ErrorMsg = ForgetPassword.UpdatePassword(UpdatePassword);
             return Ok(ErrorMsg);
+        }
+
+
+        [Route("Activate")]
+        [HttpGet]
+        public IHttpActionResult Activate(string activationCode)
+        {
+            // Get user id by code
+            // Update user table and set is active to true
+            // Redirect user to Html Page with Success message
+            Uri redirect = new Uri("http://127.0.0.1/Html/success.html");
+            return Redirect(redirect);
         }
        
     }

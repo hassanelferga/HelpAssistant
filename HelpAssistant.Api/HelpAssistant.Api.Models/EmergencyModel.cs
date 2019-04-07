@@ -9,8 +9,8 @@ namespace HelpAssistant.Api.Models
 
     public class EmergencyModel
     {
-        public int EmergencyId { get; set; }
-        public string MobileNumber { get; set; }
-        public string ContentSMS { get; set; }
+        public string UserID { get; set; }
+        public string Numbers { get; set; }
+        public string Message { get; set; }
     }
 }
