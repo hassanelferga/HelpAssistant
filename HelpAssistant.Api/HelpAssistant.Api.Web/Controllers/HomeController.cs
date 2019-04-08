@@ -54,8 +54,8 @@ namespace HelpAssistant.Api.Web.Controllers
                */
 
             // Test Send Email
-            bool isSent = EmailSender.SendEmail("mibrahim_elferga@hotmail.com", "Test From API", "<h1>Hello From my API</h1>");
-
+         //   bool isSent = EmailSender.SendEmail("mibrahim_elferga@hotmail.com", "Test From API", "<h1>Hello From my API</h1>");
+         
             ViewBag.Title = "Home Page";
 
             return View();
