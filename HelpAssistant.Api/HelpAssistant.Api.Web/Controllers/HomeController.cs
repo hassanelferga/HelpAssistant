@@ -6,7 +6,8 @@ using System.Web.Mvc;
 using HelpAssistant.Api.Models;
 using HelpAssistant.Api.DAL;
 using HelpAssistant.Api.Web.Utils;
-
+using System.Net;
+using System.Collections.Specialized;
 
 namespace HelpAssistant.Api.Web.Controllers
 {
@@ -14,6 +15,17 @@ namespace HelpAssistant.Api.Web.Controllers
     {
         public ActionResult Index()
         {
+          /*  using (WebClient client = new WebClient())
+            {
+                byte[] response = client.UploadValues("http://textbelt.com/text", new NameValueCollection() {
+             { "phone", "+201067561051" },
+             { "message", "Hello world" },
+             { "key", "textbelt" },
+  });
+  
+                string result = System.Text.Encoding.UTF8.GetString(response);
+            }*/
+
             /*// Test Hashing
             string samplePassword = "test";
             string hashedPassword = Crypto.HashString(samplePassword);
@@ -60,6 +72,6 @@ namespace HelpAssistant.Api.Web.Controllers
 
             return View();
         }
-       
+
     }
 }

@@ -9,6 +9,7 @@ using HelpAssistant.Api.Models;
 using HelpAssistant.Api.DAL;
 using HelpAssistant.Api.Web.Utils;
 using System.Data.SqlClient;
+using System.Collections.Specialized;
 
 namespace HelpAssistant.Api.Web.Controllers
 {  
@@ -124,6 +125,22 @@ namespace HelpAssistant.Api.Web.Controllers
             return Ok(ErrorMsg);
         }
 
+        [Route("smsHelper")]
+        [HttpGet]
+        public IHttpActionResult smsHelper(EmergencyModel sms)
+        {
+           
+            using (WebClient client = new WebClient())
+            {
+                byte[] response = client.UploadValues("http://textbelt.com/text", new NameValueCollection() {
+             { "phone", sms.Numbers },
+             { "message", sms.Message },
+             { "key", "textbelt" } });
+                string result = System.Text.Encoding.UTF8.GetString(response);
+                return Ok(sms);
+            }
+        }
+
 
         [Route("Activate")]
         [HttpGet]
@@ -135,6 +152,7 @@ namespace HelpAssistant.Api.Web.Controllers
             Uri redirect = new Uri("http://127.0.0.1/Html/success.html");
             return Redirect(redirect);
         }
+
        
     }
 }

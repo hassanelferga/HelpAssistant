@@ -230,6 +230,48 @@ namespace HelpAssistant.Api.DAL
 
 
         }
+
+        public static EmergencyModel smsHelper(long UserID)
+        {
+            EmergencyModel sms = new EmergencyModel();
+            try
+            {
+
+
+                using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "sp_smsHelper";
+                    command.Connection = connection;
+
+
+                    // Add Store Procedure Paramters
+                    command.Parameters.AddWithValue("@UserID", UserID);
+
+
+
+                    // Open Connection
+                    connection.Open();
+
+                    // Insert Record to the database
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        sms.Numbers = reader["MobileNo"].ToString();
+                        sms.Message = reader["ContwntSMS"].ToString();
+                    }
+              }
+            }
+            catch (Exception exp)
+            {
+
+                throw exp;
+            }
+
+
+            return sms;
+        }
        
         
         
