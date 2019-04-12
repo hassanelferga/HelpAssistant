@@ -24,23 +24,46 @@ namespace HelpAssistant.Api.Web.Controllers
             user.Password = Crypto.HashString(user.Password);
             string errorMessage;
             long userID;
-            int status = UserManager.Register(user, out errorMessage, out userID);
-            if(status == 0 || status == -1)
+            int status = UserManager.Register(user, out errorMessage, out userID, out string code);
+            if (status == 0 || status == -1)
             {
-                // Send Email to user
-                // Make Async in new Task
-                // Generate user code and insert into table (new table UserID, Code, is used)
-                bool isSent = EmailSender.SendEmail(user.Email, "Activate Your Account", "Click here to Activate");
+
                 return Request.CreateResponse(HttpStatusCode.NotFound, errorMessage);
             }
             else
             {
+                // Send Email to user
+                // Make Async in new Task
+                string message = EmailFormatter.FormatNewUser(user.FirstName, code);
+                bool isSent = EmailSender.SendEmail(user.Email, "Activate Your Account", message);
                 var userObject = new
                 {
                     userID = userID
                 };
-                return Request.CreateResponse(HttpStatusCode.OK,  userObject);
+                return Request.CreateResponse(HttpStatusCode.OK, userObject);
             }
+        }
+
+        [Route("activateuser")]
+        [HttpGet]
+        public HttpResponseMessage ActivateUser(string code)
+        {
+            var resposne = Request.CreateResponse(HttpStatusCode.Found);
+            try
+            {
+                bool isDone = UserManager.ActivateUser(code);
+                if (isDone)
+                {
+                    resposne.Headers.Location = new Uri("http://localhost:26694/EmailTemplates/success.html");
+                }
+                else
+                    resposne.Headers.Location = new Uri("http://localhost:26694/EmailTemplates/error.html");
+            }
+            catch (Exception ex)
+            {
+                resposne.Headers.Location = new Uri("http://localhost:26694/EmailTemplates/error.html");
+            }
+            return resposne;
         }
 
         [Route("update")]
@@ -142,16 +165,16 @@ namespace HelpAssistant.Api.Web.Controllers
         }
 
 
-        [Route("Activate")]
-        [HttpGet]
-        public IHttpActionResult Activate(string activationCode)
-        {
-            // Get user id by code
-            // Update user table and set is active to true
-            // Redirect user to Html Page with Success message
-            Uri redirect = new Uri("http://127.0.0.1/Html/success.html");
-            return Redirect(redirect);
-        }
+        //[Route("Activate")]
+        //[HttpGet]
+        //public IHttpActionResult Activate(string activationCode)
+        //{
+        //    // Get user id by code
+        //    // Update user table and set is active to true
+        //    // Redirect user to Html Page with Success message
+        //    Uri redirect = new Uri("http://127.0.0.1/Html/success.html");
+        //    return Redirect(redirect);
+        //}
 
        
     }

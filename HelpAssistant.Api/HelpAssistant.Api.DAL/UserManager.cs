@@ -11,13 +11,17 @@ namespace HelpAssistant.Api.DAL
 {
     public static class UserManager
     {
-        public  static int Register(RegisterModel user, out string errorMessage, out long userID)
+        public static int Register(RegisterModel user, out string errorMessage, out long userID, out string code)
         {
             int status = 0;
             userID = 0;
             errorMessage = string.Empty;
+            // Generate random code
+
             try
             {
+                string activationCode = KeyGenerator.GetUniqueKey();
+                code = activationCode;
                 using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
                 {
                     SqlCommand command = new SqlCommand();
@@ -32,19 +36,55 @@ namespace HelpAssistant.Api.DAL
                     command.Parameters.AddWithValue("@Password", user.Password);
                     command.Parameters.AddWithValue("@PhoneNumber", user.PhoneNumber);
                     command.Parameters.AddWithValue("@Email", user.Email);
-
+                    command.Parameters.AddWithValue("@ActivationCode", activationCode);
                     // Open Connection
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader(System.Data.CommandBehavior.SingleRow);
-                    while(reader.Read())
+                    while (reader.Read())
                     {
                         errorMessage = reader["ErrorMsg"].ToString();
                         userID = Convert.ToInt64(reader["UserID"].ToString());
                         status = Convert.ToInt32(reader["Status"].ToString());
                     }
-                    
+
                 }
                 return status;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public static bool ActivateUser(string code)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(AppSetings.DbConnectionString))
+                {
+                    SqlCommand command = new SqlCommand();
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.CommandText = "Sp_ActivateUser";
+                    command.Connection = connection;
+
+                    // Add Store Procedure Paramters
+                    command.Parameters.AddWithValue("@Code", code);
+
+                    // Open Connection
+                    connection.Open();
+
+                    // Insert Record to the database
+                    int noOfRows = command.ExecuteNonQuery();
+                    if (noOfRows > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
             }
             catch (Exception ex)
             {

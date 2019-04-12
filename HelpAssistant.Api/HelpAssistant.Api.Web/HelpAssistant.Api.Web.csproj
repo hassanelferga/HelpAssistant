@@ -200,6 +200,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Crypto.cs" />
+    <Compile Include="Utils\EmailFormatter.cs" />
     <Compile Include="Utils\EmailSender.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -208,7 +209,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="EmailTemplates\error.html" />
     <Content Include="EmailTemplates\mail.html" />
+    <Content Include="EmailTemplates\NewUser.html" />
+    <Content Include="EmailTemplates\success.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
