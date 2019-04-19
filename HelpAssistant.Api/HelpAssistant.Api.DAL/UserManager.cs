@@ -271,9 +271,10 @@ namespace HelpAssistant.Api.DAL
 
         }
 
-        public static EmergencyModel smsHelper(long UserID)
+        public static List<EmergencyModel> smsHelper(string UserID)
         {
-            EmergencyModel sms = new EmergencyModel();
+            
+            List<EmergencyModel> list = new List<EmergencyModel>();
             try
             {
 
@@ -298,8 +299,10 @@ namespace HelpAssistant.Api.DAL
                     SqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
+                        EmergencyModel sms = new EmergencyModel();
                         sms.Numbers = reader["MobileNo"].ToString();
-                        sms.Message = reader["ContwntSMS"].ToString();
+                        sms.Message = reader["ContentSMS"].ToString();
+                        list.Add(sms);
                     }
               }
             }
@@ -310,7 +313,7 @@ namespace HelpAssistant.Api.DAL
             }
 
 
-            return sms;
+            return list;
         }
        
         

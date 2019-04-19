@@ -24,7 +24,8 @@ namespace HelpAssistant.Api.Web.Controllers
             user.Password = Crypto.HashString(user.Password);
             string errorMessage;
             long userID;
-            int status = UserManager.Register(user, out errorMessage, out userID, out string code);
+            string code;
+            int status = UserManager.Register(user, out errorMessage, out userID, out  code);
             if (status == 0 || status == -1)
             {
 
@@ -49,19 +50,20 @@ namespace HelpAssistant.Api.Web.Controllers
         public HttpResponseMessage ActivateUser(string code)
         {
             var resposne = Request.CreateResponse(HttpStatusCode.Found);
+            var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
             try
             {
                 bool isDone = UserManager.ActivateUser(code);
                 if (isDone)
                 {
-                    resposne.Headers.Location = new Uri("http://localhost:26694/EmailTemplates/success.html");
+                    resposne.Headers.Location = new Uri(baseUrl + "/EmailTemplates/success.html");
                 }
                 else
-                    resposne.Headers.Location = new Uri("http://localhost:26694/EmailTemplates/error.html");
+                    resposne.Headers.Location = new Uri(baseUrl + "/EmailTemplates/error.html");
             }
             catch (Exception ex)
             {
-                resposne.Headers.Location = new Uri("http://localhost:26694/EmailTemplates/error.html");
+                resposne.Headers.Location = new Uri(baseUrl + "/EmailTemplates/error.html");
             }
             return resposne;
         }
@@ -149,19 +151,22 @@ namespace HelpAssistant.Api.Web.Controllers
         }
 
         [Route("smsHelper")]
-        [HttpGet]
+        [HttpPost]
         public IHttpActionResult smsHelper(EmergencyModel sms)
         {
-           
-            using (WebClient client = new WebClient())
+            List<EmergencyModel> list = UserManager.smsHelper(sms.UserID);
+            foreach (EmergencyModel model in list)
             {
-                byte[] response = client.UploadValues("http://textbelt.com/text", new NameValueCollection() {
-             { "phone", sms.Numbers },
-             { "message", sms.Message },
+                using (WebClient client = new WebClient())
+                {
+                    byte[] response = client.UploadValues("http://textbelt.com/text", new NameValueCollection() {
+             { "phone", model.Numbers },
+             { "message", model.Message },
              { "key", "textbelt" } });
-                string result = System.Text.Encoding.UTF8.GetString(response);
-                return Ok(sms);
+                    string result = System.Text.Encoding.UTF8.GetString(response);
+                }
             }
+            return Ok("Success");
         }
 
 
